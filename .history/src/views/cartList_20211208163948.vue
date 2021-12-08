@@ -77,13 +77,11 @@ export default defineComponent({
     const store = useStore();
 
     //追加された商品の格納場所
-    let cartList = Array<orderItem>();
+    let cartList = ref(Array<orderItem>());
 
-    const defaultDisplay = () => {
-      cartList = store.getters.getCartItemList;
-      console.dir("カートリスト(cartList):" + JSON.stringify(cartList));
-    };
-    defaultDisplay();
+    cartList = store.getters.getCartItemList;
+    console.dir("カートリスト(cartList):" + JSON.stringify(cartList));
+
     /**
      * カートから削除する.
      */
@@ -91,16 +89,16 @@ export default defineComponent({
       store.commit("deleteItem", {
         index: index,
       });
-      cartList = store.getters.getCartItemList;
-      // console.dir(
-      //   "カート削除ボタンクリック後の確認" + JSON.stringify(cartList)
-      // );
+
+      cartList.value = store.getters.getCartItemList;
+      console.dir(
+        "カート削除ボタンクリック後の確認" + JSON.stringify(cartList)
+      );
     };
 
     return {
       cartList,
       deleteOrderItem,
-      defaultDisplay,
     };
   },
 });

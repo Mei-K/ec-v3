@@ -18,7 +18,7 @@
               <div class="cart-item-icon">
                 <img :src="cartList[index].item.imagePath" />
               </div>
-              <span>{{ cartList[index].item.name }}</span>
+              <span>{{ cartList[i].item.name }}</span>
             </td>
             <td>
               <span class="price">{{ cartList[index].size }}</span
@@ -37,11 +37,7 @@
               <div class="text-center">合計金額 {{}}円</div>
             </td>
             <td>
-              <button
-                class="btn"
-                type="button"
-                v-on:click="deleteOrderItem(index)"
-              >
+              <button class="btn" type="button">
                 <span>削除</span>
               </button>
             </td>
@@ -69,7 +65,7 @@
 
 <script lang="ts">
 import { orderItem } from "@/types/orderItem";
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 import { useStore } from "vuex";
 export default defineComponent({
   setup() {
@@ -79,11 +75,9 @@ export default defineComponent({
     //追加された商品の格納場所
     let cartList = Array<orderItem>();
 
-    const defaultDisplay = () => {
-      cartList = store.getters.getCartItemList;
-      console.dir("カートリスト(cartList):" + JSON.stringify(cartList));
-    };
-    defaultDisplay();
+    cartList = store.getters.getCartItemList;
+    console.dir("カートリスト(cartList):" + JSON.stringify(cartList));
+
     /**
      * カートから削除する.
      */
@@ -91,16 +85,10 @@ export default defineComponent({
       store.commit("deleteItem", {
         index: index,
       });
-      cartList = store.getters.getCartItemList;
-      // console.dir(
-      //   "カート削除ボタンクリック後の確認" + JSON.stringify(cartList)
-      // );
     };
 
     return {
       cartList,
-      deleteOrderItem,
-      defaultDisplay,
     };
   },
 });

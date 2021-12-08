@@ -69,7 +69,7 @@
 
 <script lang="ts">
 import { orderItem } from "@/types/orderItem";
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 import { useStore } from "vuex";
 export default defineComponent({
   setup() {
@@ -79,11 +79,9 @@ export default defineComponent({
     //追加された商品の格納場所
     let cartList = Array<orderItem>();
 
-    const defaultDisplay = () => {
-      cartList = store.getters.getCartItemList;
-      console.dir("カートリスト(cartList):" + JSON.stringify(cartList));
-    };
-    defaultDisplay();
+    cartList = store.getters.getCartItemList;
+    console.dir("カートリスト(cartList):" + JSON.stringify(cartList));
+
     /**
      * カートから削除する.
      */
@@ -92,15 +90,10 @@ export default defineComponent({
         index: index,
       });
       cartList = store.getters.getCartItemList;
-      // console.dir(
-      //   "カート削除ボタンクリック後の確認" + JSON.stringify(cartList)
-      // );
     };
 
     return {
       cartList,
-      deleteOrderItem,
-      defaultDisplay,
     };
   },
 });

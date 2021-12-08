@@ -78,7 +78,6 @@ export default defineComponent({
 
     //追加された商品の格納場所
     let cartList = Array<orderItem>();
-
     const defaultDisplay = () => {
       cartList = store.getters.getCartItemList;
       console.dir("カートリスト(cartList):" + JSON.stringify(cartList));
@@ -91,16 +90,16 @@ export default defineComponent({
       store.commit("deleteItem", {
         index: index,
       });
+
       cartList = store.getters.getCartItemList;
-      // console.dir(
-      //   "カート削除ボタンクリック後の確認" + JSON.stringify(cartList)
-      // );
+      console.dir(
+        "カート削除ボタンクリック後の確認" + JSON.stringify(cartList)
+      );
     };
 
     return {
       cartList,
       deleteOrderItem,
-      defaultDisplay,
     };
   },
 });

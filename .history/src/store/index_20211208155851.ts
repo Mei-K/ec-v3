@@ -69,7 +69,7 @@ export default createStore({
     /**
      * カートから商品を削除する.
      * @param state - ステートオブジェクト
-     * @param payload - カートから削除する商品の情報
+     * @param payload
      */
     deleteItem(state, payload) {
       state.cartItemList.splice(payload.index, 1);

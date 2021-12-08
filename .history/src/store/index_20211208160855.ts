@@ -73,6 +73,9 @@ export default createStore({
      */
     deleteItem(state, payload) {
       state.cartItemList.splice(payload.index, 1);
+      console.log("カートの中身を削除
+      ");
+      
     },
   },
   actions: {
