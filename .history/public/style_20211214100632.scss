@@ -1,0 +1,17 @@
+$navy: #192f60;
+
+html {
+  font-size: 62.5%;
+}
+
+a {
+  color: $navy;
+}
+
+.input-container {
+  width: 70%;
+  margin: 0 auto;
+  background-color: rgba(200, 194, 198, 0.3);
+  padding: 4rem 2rem;
+  box-sizing: border-box;
+}

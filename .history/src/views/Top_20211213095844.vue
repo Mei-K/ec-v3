@@ -1,0 +1,25 @@
+<template>
+  <div class="home">
+    <div class="top-img">
+      <img
+        src="/img_aloha/hawaii_top2.png"
+        alt="アロハカフェのトップイメージ"
+      />
+    </div>
+    <h1>E komo mai</h1>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "@vue/runtime-core";
+
+export default defineComponent({});
+</script>
+
+<style scoped>
+.home {
+  width: 100%;
+  height: 100vh;
+  color: black;
+}
+</style>
