@@ -84,7 +84,7 @@
           </button>
         </li>
         <li class="row order-confirm-btn">
-          <button class="btn" type="button" v-on:click="orderConfirm()">
+          <button class="btn" type="button" v-on:click="orderConfirm">
             <span>注文に進む</span>
           </button>
         </li>

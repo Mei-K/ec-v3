@@ -62,8 +62,8 @@ export default defineComponent({
     //モーダルクリックチェック
     let showContent = ref(false);
 
-    //ログインステータス
-    let loginUserStatus = false;
+    //
+    let loginUserStatus = ref(false);
 
     /**
      * モーダルウィンドウを表示する.
@@ -83,7 +83,7 @@ export default defineComponent({
      * ログイン状態を取得する.
      */
     let getloginStatus = () => {
-      loginUserStatus = store.getters.getLoginStatus;
+      loginUserStatus.value = store.getters.getLoginStatus;
       return loginUserStatus;
     };
 
@@ -157,7 +157,7 @@ header {
   justify-content: end;
 
   @include tablet {
-    width: 70%;
+    width: 50%;
     margin: 0;
   }
 }

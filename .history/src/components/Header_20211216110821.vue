@@ -151,13 +151,13 @@ header {
 }
 
 .header-right {
-  width: 60%;
+  width: 70%;
   margin: 0 auto;
   display: flex;
   justify-content: end;
 
   @include tablet {
-    width: 70%;
+    width: 50%;
     margin: 0;
   }
 }

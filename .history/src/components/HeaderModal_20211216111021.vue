@@ -40,6 +40,8 @@ export default defineComponent({
   setup(props, context) {
     //ログインしているユーザー名
     let userName = ref("");
+    //親からログインフラグの受け取り
+    // let getLoginFlag = toRefs(props);
 
     //受け取った路銀ステータスを代入
     let getLoginStatus = false;

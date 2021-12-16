@@ -15,15 +15,14 @@
           <li><i class="fas fa-user"></i>会員登録</li>
         </router-link>
 
-        <router-link to="/logoutUser" v-if="loginCheck()">
+        <router-link to="/logoutUser" v-if="loginCheck">
           <li><i class="fas fa-sign-in-alt"></i>ログアウト</li>
         </router-link>
 
-        <router-link to="/loginUser" v-if="!loginCheck()">
+        <router-link to="/loginUser" v-if="!loginCheck">
           <li><i class="fas fa-sign-in-alt"></i>ログイン</li>
         </router-link>
       </ul>
-
       <!-- <button v-on:click="closeModal()">close</button> -->
     </div>
   </div>
@@ -31,7 +30,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "@vue/runtime-core";
-
+import { toRefs } from "vue";
 export default defineComponent({
   props: {
     loginFlag: Boolean,
@@ -40,9 +39,8 @@ export default defineComponent({
   setup(props, context) {
     //ログインしているユーザー名
     let userName = ref("");
-
-    //受け取った路銀ステータスを代入
-    let getLoginStatus = false;
+    //ログインフラグの受け取り
+    let getLoginFlag = toRefs(props);
 
     /**
      * モーダルウィンドを閉じる.
@@ -58,14 +56,15 @@ export default defineComponent({
      * @remarks true:ログイン,false:ログアウト
      */
     let loginCheck = () => {
-      return (getLoginStatus = props.loginFlag);
+      let getLoginStatus = props.loginFlag;
+      return getLoginStatus;
     };
 
     return {
       userName,
       closeModal,
       loginCheck,
-      getLoginStatus,
+      getLoginFlag,
     };
   },
 });

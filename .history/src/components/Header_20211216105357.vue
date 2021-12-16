@@ -9,7 +9,7 @@
         <HeaderModal
           v-if="showContent"
           v-on:close="closeModal()"
-          v-bind:loginFlag="getloginStatus()"
+          loginFlag="getloginStatus"
         ></HeaderModal>
       </transition>
     </div>
@@ -62,9 +62,6 @@ export default defineComponent({
     //モーダルクリックチェック
     let showContent = ref(false);
 
-    //ログインステータス
-    let loginUserStatus = false;
-
     /**
      * モーダルウィンドウを表示する.
      */
@@ -83,7 +80,7 @@ export default defineComponent({
      * ログイン状態を取得する.
      */
     let getloginStatus = () => {
-      loginUserStatus = store.getters.getLoginStatus;
+      let loginUserStatus = store.getters.getLoginStatus;
       return loginUserStatus;
     };
 
@@ -157,7 +154,7 @@ header {
   justify-content: end;
 
   @include tablet {
-    width: 70%;
+    width: 50%;
     margin: 0;
   }
 }

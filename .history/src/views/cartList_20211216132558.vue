@@ -84,7 +84,7 @@
           </button>
         </li>
         <li class="row order-confirm-btn">
-          <button class="btn" type="button" v-on:click="orderConfirm()">
+          <button class="btn" type="button">
             <span>注文に進む</span>
           </button>
         </li>
@@ -171,10 +171,6 @@ export default defineComponent({
       router.push("/itemList");
     };
 
-    let orderConfirm = () => {
-      router.push("/orderConfirm");
-    };
-
     return {
       cartList,
       deleteOrderItem,
@@ -183,7 +179,6 @@ export default defineComponent({
       calcTotalTaxPriceInCart,
       calcTotalPricePlusTax,
       returnItemList,
-      orderConfirm,
     };
   },
 });

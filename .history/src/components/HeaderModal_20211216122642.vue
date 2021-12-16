@@ -42,7 +42,7 @@ export default defineComponent({
     let userName = ref("");
 
     //受け取った路銀ステータスを代入
-    let getLoginStatus = false;
+    let getLoginStatus = ref(false);
 
     /**
      * モーダルウィンドを閉じる.
@@ -57,14 +57,15 @@ export default defineComponent({
      * ログインフラグの有無
      * @remarks true:ログイン,false:ログアウト
      */
-    let loginCheck = () => {
-      return (getLoginStatus = props.loginFlag);
-    };
+    // let loginCheck = () => {
+    //   console.dir("これ" + JSON.stringify(getLoginStatus.value));
+    //   return (getLoginStatus.value = props.loginFlag);
+    // };
 
     return {
       userName,
       closeModal,
-      loginCheck,
+
       getLoginStatus,
     };
   },

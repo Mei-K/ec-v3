@@ -58,7 +58,7 @@ export default defineComponent({
      * @remarks true:ログイン,false:ログアウト
      */
     let loginCheck = () => {
-      return (getLoginStatus = props.loginFlag);
+      return props.loginFlag;
     };
 
     return {

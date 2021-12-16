@@ -42,7 +42,7 @@ export default defineComponent({
     let userName = ref("");
 
     //受け取った路銀ステータスを代入
-    let getLoginStatus = false;
+    let getLoginStatus = ref(false);
 
     /**
      * モーダルウィンドを閉じる.

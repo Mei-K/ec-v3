@@ -87,6 +87,8 @@ export default defineComponent({
       return loginUserStatus;
     };
 
+    console.log(getloginStatus);
+
     let getLoginUserInfo = () => {
       let userInfo = store.getters.getLoginUserInfo;
       userName.value = userInfo._name;
@@ -157,7 +159,7 @@ header {
   justify-content: end;
 
   @include tablet {
-    width: 70%;
+    width: 50%;
     margin: 0;
   }
 }
