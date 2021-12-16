@@ -121,9 +121,6 @@ import { defineComponent } from "@vue/runtime-core";
 import CartList from "../components/cartListComponent.vue";
 export default defineComponent({
   components: { CartList },
-  setup() {
-    //お届け先情報入力欄
-  },
 });
 </script>
 

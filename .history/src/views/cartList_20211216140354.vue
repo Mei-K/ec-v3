@@ -101,15 +101,10 @@ export default defineComponent({
     let returnItemList = () => {
       router.push("/itemList");
     };
-    /**
-     * 注文画面に進む.
-     */
+
     let orderConfirm = () => {
-      if (store.getters.getLoginStatus === true) {
-        router.push("/orderConfirm");
-      } else if (store.getters.getLoginStatus === false) {
-        router.push("/loginUser");
-      }
+      store.getters.getLoginStatus;
+      router.push("/orderConfirm");
     };
 
     return {

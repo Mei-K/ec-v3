@@ -1,7 +1,7 @@
 <template>
   <div class="top-wrap">
     <h1 class="page-title">注文内容確認</h1>
-    <CartList></CartList>
+
     <h2 class="page-title">お届け先情報</h2>
     <div class="order-confirm-delivery-info">
       <div class="row">
@@ -118,13 +118,8 @@
 
 <script lang="ts">
 import { defineComponent } from "@vue/runtime-core";
-import CartList from "../components/cartListComponent.vue";
-export default defineComponent({
-  components: { CartList },
-  setup() {
-    //お届け先情報入力欄
-  },
-});
+
+export default defineComponent({});
 </script>
 
 <style lang="scss" scoped></style>

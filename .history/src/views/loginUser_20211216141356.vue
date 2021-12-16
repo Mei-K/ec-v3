@@ -111,11 +111,8 @@ export default defineComponent({
           });
 
           store.commit("loginUser");
-          //ログイン後ショッピングカートの商品数１個以上なら注文画面に、０個なら商品一覧に画面遷移
           if (store.getters.getOrderItemCountInCart >= 1) {
             router.push("/orderConfirm");
-          } else if (store.getters.getOrderItemCountInCart === 0) {
-            router.push("/itemList");
           }
         } else if (response.data.status === "error") {
           errorMsgLogin.value = response.data.message;

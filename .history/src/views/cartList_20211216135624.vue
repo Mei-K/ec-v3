@@ -3,21 +3,19 @@
     <div class="container">
       <!-- table -->
       <div class="row">
-        <h1>ショッピングカート</h1>
-        <CartList></CartList>
-        <ul class="button-container">
-          <li class="row item-list-btn">
-            <button class="btn" type="button" v-on:click="returnItemList()">
-              <span>買い物を続ける</span>
-            </button>
-          </li>
-          <li class="row order-confirm-btn">
-            <button class="btn" type="button" v-on:click="orderConfirm()">
-              <span>注文に進む</span>
-            </button>
-          </li>
-        </ul>
-      </div>
+        
+      <ul class="button-container">
+        <li class="row item-list-btn">
+          <button class="btn" type="button" v-on:click="returnItemList()">
+            <span>買い物を続ける</span>
+          </button>
+        </li>
+        <li class="row order-confirm-btn">
+          <button class="btn" type="button" v-on:click="orderConfirm()">
+            <span>注文に進む</span>
+          </button>
+        </li>
+      </ul>
     </div>
     <!-- end container -->
   </div>
@@ -28,9 +26,7 @@ import { orderItem } from "@/types/orderItem";
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import CartList from "../components/cartListComponent.vue";
 export default defineComponent({
-  components: { CartList },
   setup() {
     //Store
     const store = useStore();
@@ -101,15 +97,9 @@ export default defineComponent({
     let returnItemList = () => {
       router.push("/itemList");
     };
-    /**
-     * 注文画面に進む.
-     */
+
     let orderConfirm = () => {
-      if (store.getters.getLoginStatus === true) {
-        router.push("/orderConfirm");
-      } else if (store.getters.getLoginStatus === false) {
-        router.push("/loginUser");
-      }
+      router.push("/orderConfirm");
     };
 
     return {

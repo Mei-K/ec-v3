@@ -3,7 +3,6 @@
     <div class="container">
       <!-- table -->
       <div class="row">
-        <h1>ショッピングカート</h1>
         <CartList></CartList>
         <ul class="button-container">
           <li class="row item-list-btn">
@@ -101,15 +100,9 @@ export default defineComponent({
     let returnItemList = () => {
       router.push("/itemList");
     };
-    /**
-     * 注文画面に進む.
-     */
+
     let orderConfirm = () => {
-      if (store.getters.getLoginStatus === true) {
-        router.push("/orderConfirm");
-      } else if (store.getters.getLoginStatus === false) {
-        router.push("/loginUser");
-      }
+      router.push("/orderConfirm");
     };
 
     return {

@@ -206,13 +206,9 @@ export default createStore({
     getLoginUserInfo(state) {
       return state.loginUser;
     },
-    /**
-     *ショッピングカートの中の商品数を取得.
-     * @param state -ステートオブジェクト
-     * @returns ショッピングカートの中の商品数
-     */
+
     getOrderItemCountInCart(state) {
-      return state.cartItemList.length;
+      return state.cartItemList;
     },
   },
   modules: {},

@@ -1,25 +1,78 @@
 <template>
-  <div class="top-wrap">
-    <div class="container">
-      <!-- table -->
-      <div class="row">
-        <h1>ショッピングカート</h1>
-        <CartList></CartList>
-        <ul class="button-container">
-          <li class="row item-list-btn">
-            <button class="btn" type="button" v-on:click="returnItemList()">
-              <span>買い物を続ける</span>
+  <div>
+    <h1>ショッピングカート</h1>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th class="cart-table-th">商品名</th>
+          <th>サイズ、価格(税抜)、数量</th>
+          <th>トッピング、価格(税抜)</th>
+          <th>小計</th>
+        </tr>
+      </thead>
+      <tbody v-for="(cartItem, index) of cartList" v-bind:key="cartItem.id">
+        <tr>
+          <td class="cart-item-name">
+            <div class="cart-item-icon">
+              <img :src="cartList[index].item.imagePath" />
+            </div>
+            <span>{{ cartList[index].item.name }}</span>
+          </td>
+          <td>
+            <span class="price">{{ cartList[index].size }}</span
+            >&nbsp;&nbsp;{{
+              cartList[index].unitItemPrice(index).toLocaleString()
+            }}円 &nbsp;&nbsp;{{ cartList[index].quantity }}個
+          </td>
+          <td>
+            <ul
+              v-for="topping of cartItem.orderToppingList"
+              v-bind:key="topping.id"
+            >
+              <li>
+                {{ topping.name }} :
+                {{ cartList[index].toppingPrice(cartList[index].size) }}円
+              </li>
+            </ul>
+          </td>
+          <td>
+            <div class="text-center">
+              合計金額
+              {{
+                cartList[index]
+                  .calcTotalPrice(
+                    cartList[index].size,
+                    cartList[index].quantity,
+                    cartItem.orderToppingList.length
+                  )
+                  .toLocaleString()
+              }}円
+            </div>
+          </td>
+          <td>
+            <button
+              class="btn"
+              type="button"
+              v-on:click="deleteOrderItem(index)"
+            >
+              <span>削除</span>
             </button>
-          </li>
-          <li class="row order-confirm-btn">
-            <button class="btn" type="button" v-on:click="orderConfirm()">
-              <span>注文に進む</span>
-            </button>
-          </li>
-        </ul>
-      </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row cart-total-price">
+    <span class="show-price"
+      >税抜き {{ calcTotalPriceInCart().toLocaleString() }}円</span
+    >
+    <span class="show-price"
+      >消費税 {{ calcTotalTaxPriceInCart().toLocaleString() }}</span
+    >
+    <div>
+      ご注文金額合計 {{ calcTotalPricePlusTax().toLocaleString() }}円 (税込)
     </div>
-    <!-- end container -->
   </div>
 </template>
 
@@ -28,9 +81,7 @@ import { orderItem } from "@/types/orderItem";
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import CartList from "../components/cartListComponent.vue";
 export default defineComponent({
-  components: { CartList },
   setup() {
     //Store
     const store = useStore();
@@ -101,15 +152,9 @@ export default defineComponent({
     let returnItemList = () => {
       router.push("/itemList");
     };
-    /**
-     * 注文画面に進む.
-     */
+
     let orderConfirm = () => {
-      if (store.getters.getLoginStatus === true) {
-        router.push("/orderConfirm");
-      } else if (store.getters.getLoginStatus === false) {
-        router.push("/loginUser");
-      }
+      router.push("/orderConfirm");
     };
 
     return {
@@ -126,49 +171,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-/* ========================================
-    ショッピングカートページのスタイル
-   ======================================== */
-.cart-table-th {
-  text-align: center;
-}
-.cart-item-icon img {
-  margin: auto;
-  display: block;
-  /* border-radius: 20px; */
-  width: 100px;
-  height: 100px;
-  padding: 0 0 15px 0;
-}
-.cart-item-name {
-  text-align: center;
-  font-size: 1.5rem;
-}
-
-.cart-total-price {
-  font-size: 3rem;
-  text-align: center;
-}
-
-.show-price {
-  font-size: 2rem;
-  &:first-child {
-    margin-right: 2rem;
-  }
-}
-
-.button-container {
-  display: flex;
-  flex-direction: row;
-  margin: 0;
-  justify-content: center;
-
-  &li {
-    margin: 0;
-    &:last-child {
-      margin-right: 3rem;
-    }
-  }
-}
-</style>
+<style></style>
