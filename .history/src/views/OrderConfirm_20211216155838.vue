@@ -181,14 +181,14 @@ export default defineComponent({
       } else {
         errorMsgZipcode.value = "";
       }
-      //住所入力チェック
+
       if (address.value === "") {
         errorFlag.value = true;
         errorMsgZipcode.value = "住所を入力してください";
       } else {
         errorMsgZipcode.value = "";
       }
-      //電話番号入力チェック
+
       if (tel.value === "") {
         errorFlag.value = true;
         errorMsgTel.value = "電話番号を入力してください";
@@ -198,7 +198,6 @@ export default defineComponent({
       } else {
         errorMsgTel.value = "";
       }
-      //日付選択チェック(１時間以内を選択してたら注文完了できない)
     };
 
     return {

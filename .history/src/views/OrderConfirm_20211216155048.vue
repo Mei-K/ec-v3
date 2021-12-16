@@ -157,48 +157,17 @@ export default defineComponent({
     let errorCheck = () => {
       let errorFlag = ref(false);
 
-      //名前入力チェック
       if (name.value === "") {
         errorFlag.value = true;
         errorMsgName.value = "名前を入力してください";
       } else {
         errorMsgName.value = "";
       }
-      //メールアドレス入力チェック
+
       if (email.value === "") {
         errorFlag.value = true;
         errorMsgMailAddress.value = "メールアドレスを入力してください";
-      } else {
-        errorMsgAddress.value = "";
       }
-      //郵便番号入力チェック
-      if (zipcode.value === "") {
-        errorFlag.value = true;
-        errorMsgZipcode.value = "郵便番号を入力してください";
-      } else if (!zipcode.value.match(/[0-9]{7}/g)) {
-        errorFlag.value = true;
-        errorMsgZipcode.value = "数字7桁で入力してください";
-      } else {
-        errorMsgZipcode.value = "";
-      }
-      //住所入力チェック
-      if (address.value === "") {
-        errorFlag.value = true;
-        errorMsgZipcode.value = "住所を入力してください";
-      } else {
-        errorMsgZipcode.value = "";
-      }
-      //電話番号入力チェック
-      if (tel.value === "") {
-        errorFlag.value = true;
-        errorMsgTel.value = "電話番号を入力してください";
-      } else if (!tel.value.match(/^[0-9]+$/)) {
-        errorFlag.value = true;
-        errorMsgTel.value = "数字で入力してください";
-      } else {
-        errorMsgTel.value = "";
-      }
-      //日付選択チェック(１時間以内を選択してたら注文完了できない)
     };
 
     return {

@@ -7,19 +7,19 @@
       <div class="row">
         <div class="input-field">
           <input id="name" type="text" v-model="name" />
-          <label for="name" class="active">お名前</label>
+          <label for="name">お名前</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field">
           <input id="email" type="email" v-model="email" />
-          <label for="email" class="active">メールアドレス</label>
+          <label for="email">メールアドレス</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field">
           <input id="zipcode" type="text" maxlength="7" v-model="zipcode" />
-          <label for="zipcode" class="active">郵便番号(ハイフンなし)</label>
+          <label for="zipcode">郵便番号(ハイフンなし)</label>
           <button class="btn" type="button">
             <span>住所検索</span>
           </button>
@@ -28,18 +28,18 @@
       <div class="row">
         <div class="input-field">
           <input id="address" type="text" v-model="address" />
-          <label for="address" class="active">住所</label>
+          <label for="address">住所</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field">
           <input id="tel" type="tel" v-model="tel" />
-          <label for="tel" class="active">電話番号</label>
+          <label for="tel">電話番号</label>
         </div>
       </div>
       <div class="row order-confirm-delivery-datetime">
         <div class="input-field">
-          <input id="deliveryDate" type="date" v-model="checkedDate" />
+          <input id="deliveryDate" type="date" />
           <label for="address">配達日時</label>
         </div>
         <label class="order-confirm-delivery-time">
@@ -129,15 +129,6 @@ export default defineComponent({
     let zipcode = ref("");
     let address = ref("");
     let tel = ref("");
-    let selectedDate = ref();
-
-    //エラーメッセージ
-    let errorMsgName = ref("");
-    let errorMsgMailAddress = ref("");
-    let errorMsgZipcode = ref("");
-    let errorMsgAddress = ref("");
-    let errorMsgTel = ref("");
-    let errorMsgDate = ref("");
 
     /**
      * ログインユーザー情報で届け先入力欄に自動入力.
@@ -146,61 +137,14 @@ export default defineComponent({
       const USER_INFO = store.getters.getLoginUserInfo;
       name.value = USER_INFO._name;
       email.value = USER_INFO._email;
-      zipcode.value = USER_INFO._zipcode;
-      address.value = USER_INFO._address;
-      tel.value = USER_INFO._telephone;
+      name.value = USER_INFO._name;
+      name.value = USER_INFO._name;
+      name.value = USER_INFO._name;
+      name.value = USER_INFO._name;
+
+      console.dir("ユーザー情報" + JSON.stringify(USER_INFO));
     };
-
-    /**
-     * 入力値エラーチェックする.
-     */
-    let errorCheck = () => {
-      let errorFlag = ref(false);
-
-      //名前入力チェック
-      if (name.value === "") {
-        errorFlag.value = true;
-        errorMsgName.value = "名前を入力してください";
-      } else {
-        errorMsgName.value = "";
-      }
-      //メールアドレス入力チェック
-      if (email.value === "") {
-        errorFlag.value = true;
-        errorMsgMailAddress.value = "メールアドレスを入力してください";
-      } else {
-        errorMsgAddress.value = "";
-      }
-      //郵便番号入力チェック
-      if (zipcode.value === "") {
-        errorFlag.value = true;
-        errorMsgZipcode.value = "郵便番号を入力してください";
-      } else if (!zipcode.value.match(/[0-9]{7}/g)) {
-        errorFlag.value = true;
-        errorMsgZipcode.value = "数字7桁で入力してください";
-      } else {
-        errorMsgZipcode.value = "";
-      }
-      //住所入力チェック
-      if (address.value === "") {
-        errorFlag.value = true;
-        errorMsgZipcode.value = "住所を入力してください";
-      } else {
-        errorMsgZipcode.value = "";
-      }
-      //電話番号入力チェック
-      if (tel.value === "") {
-        errorFlag.value = true;
-        errorMsgTel.value = "電話番号を入力してください";
-      } else if (!tel.value.match(/^[0-9]+$/)) {
-        errorFlag.value = true;
-        errorMsgTel.value = "数字で入力してください";
-      } else {
-        errorMsgTel.value = "";
-      }
-      //日付選択チェック(１時間以内を選択してたら注文完了できない)
-    };
-
+    getUserInfo();
     return {
       name,
       email,
@@ -208,14 +152,6 @@ export default defineComponent({
       address,
       tel,
       getUserInfo,
-      selectedDate,
-      errorCheck,
-      errorMsgName,
-      errorMsgMailAddress,
-      errorMsgZipcode,
-      errorMsgAddress,
-      errorMsgTel,
-      errorMsgDate,
     };
   },
 });

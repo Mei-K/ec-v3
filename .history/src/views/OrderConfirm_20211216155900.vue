@@ -198,7 +198,6 @@ export default defineComponent({
       } else {
         errorMsgTel.value = "";
       }
-      //日付選択チェック(１時間以内を選択してたら注文完了できない)
     };
 
     return {

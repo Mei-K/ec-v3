@@ -17,7 +17,7 @@
     <!-- スマホ以外のヘッダー -->
     <div class="container">
       <div class="header-left logo">
-        <router-link to="/"> ALOHA cafe </router-link>
+        <router-link to="/top"> ALOHA cafe </router-link>
       </div>
       <div class="user-name-container" v-if="getloginStatus()">
         aloha!
