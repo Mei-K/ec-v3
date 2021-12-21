@@ -46,7 +46,7 @@
       <div class="row order-confirm-delivery-datetime">
         <div class="input-field">
           <div class="error-msg">{{ errorMsgDate }}</div>
-          <input id="deliveryDate" type="date" v-model="selectedDate" />
+          <input id="deliveryDate" type="date" v-model="selectedTime" />
           <label for="address">配達日時</label>
         </div>
         <label class="order-confirm-delivery-time">
@@ -210,12 +210,11 @@ export default defineComponent({
     //選択された配達日付
     let selectedDate = ref("");
     //選択された配達時間
-    let selectedTime = ref(11);
+    let selectedTime = ref("11");
     //今日の日付
     let today = new Date();
     //選択されている日時をDateオブジェクト化
     const SELECT_DATE = new Date(selectedDate.value);
-
     const FOMRMAT_DATE = ref("");
 
     //エラーメッセージ
@@ -295,6 +294,7 @@ export default defineComponent({
       const TODAY_YEAR = today.getFullYear();
       const TODAY_MONTH = today.getMonth();
       const TODAY_DATE = today.getDate();
+      console.log("年月日" + TODAY_YEAR);
 
       //現在の日時から１時間以降でなかったらエラーにする
       if (
@@ -309,6 +309,7 @@ export default defineComponent({
       }
 
       const TODAY_HOUR = today.getHours();
+      console.log(TODAY_HOUR);
 
       if (
         TODAY_YEAR <= SELECT_DATE.getFullYear() &&
@@ -332,6 +333,19 @@ export default defineComponent({
     //日付選択チェック(１時間以内を選択してたら注文完了できない)
 
     /**
+     * 今日の日付を取得(デフォルトで表示させたいため)
+     * format()を使用するため npm install date-fns --save
+     */
+
+    let getTodayDate = () => {
+      let formatToday = format(today, "yyyy/MM/dd");
+      selectedDate.value = formatToday;
+    };
+    getTodayDate();
+    console.log("今日" + today);
+    console.log("選択した日付" + selectedDate.value);
+
+    /**
      * 注文する.
      */
 
@@ -339,35 +353,51 @@ export default defineComponent({
     orderItemList = store.getters.getOrderItemCountInCart;
     // APIに送るための日付フォーマット
     const createOrderDate = new Date(selectedDate.value);
-    // console.dir("createOrderDate" + JSON.stringify(createOrderDate));
     const formatOrderDate = ref(
       format(createOrderDate, `yyyy/MM/dd ${selectedTime.value}:00:00`)
     );
     let order = async () => {
+      console.log("合計金額" + getcalcTotalPricePlusTax.value);
+
       if (errorCheck() === true) {
         return;
       }
-      console.log(SELECT_DATE);
-      console.log("選択された日付" + formatOrderDate.value);
-
-      const response = await axios.post(
-        "http://153.127.48.168:8080/ecsite-api/order",
-        {
-          userId: 0,
-          status: 1,
-          totalPrice: getcalcTotalPricePlusTax.value,
-          destinationName: name.value,
-          destinationEmail: email.value,
-          destinationZipcode: zipcode.value,
-          destinationtel: tel.value,
-          deliveryTime: formatOrderDate.value,
-          paymentMethod: 1,
-          orderItemFormList: orderItemList,
-        }
-      );
-      router.push("/OrderFinished");
-      console.dir("response" + JSON.stringify(response));
+      if (errorCheck() === false) {
+        // const response = await axios.post(
+        //   "http://153.127.48.168:8080/ecsite-api/order",
+        //   {
+        //     userId: 0,
+        //     status: 1,
+        //     totalPrice: getcalcTotalPricePlusTax.value,
+        //     destinationName: name.value,
+        //     destinationEmail: email.value,
+        //     destinationZipcode: zipcode.value,
+        //     destinationtel: tel.value,
+        //     deliveryTime: formatOrderDate.value,
+        //     paymentMethod: 1,
+        //     orderItemFormList: orderItemList,
+        //   }
+        // );
+        router.push("/OrderFinished");
+        // console.dir("response" + JSON.stringify(response));
+      }
     };
+
+    // サーバーに送るために日付を加工
+    // const createOrderDate = new Date(this.orderDate);
+    // const formatOrderDate = format(
+    //   createOrderDate,
+    //   `yyyy/MM/dd ${this.deliveryTime}:00:00`
+    // );
+
+    // let formatSelectDate = () => {
+    //   const FOMRMAT_DATE = format(
+    //     Number(selectedDate),
+    //     `yyyy-MM-dd ${selectedTime.value}:00:00`
+    //   );
+    //   console.log("選択された日付" + FOMRMAT_DATE);
+    // };
+    // formatSelectDate();
 
     return {
       name,
@@ -384,6 +414,7 @@ export default defineComponent({
       errorMsgAddress,
       errorMsgTel,
       errorMsgDate,
+      getTodayDate,
       selectedTime,
       getcalcTotalPricePlusTax,
       today,

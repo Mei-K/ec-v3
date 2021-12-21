@@ -338,8 +338,7 @@ export default defineComponent({
     let orderItemList = Array<orderItem>();
     orderItemList = store.getters.getOrderItemCountInCart;
     // APIに送るための日付フォーマット
-    const createOrderDate = new Date(selectedDate.value);
-    // console.dir("createOrderDate" + JSON.stringify(createOrderDate));
+
     const formatOrderDate = ref(
       format(createOrderDate, `yyyy/MM/dd ${selectedTime.value}:00:00`)
     );

@@ -215,7 +215,6 @@ export default defineComponent({
     let today = new Date();
     //選択されている日時をDateオブジェクト化
     const SELECT_DATE = new Date(selectedDate.value);
-
     const FOMRMAT_DATE = ref("");
 
     //エラーメッセージ
@@ -309,6 +308,7 @@ export default defineComponent({
       }
 
       const TODAY_HOUR = today.getHours();
+      console.log(TODAY_HOUR);
 
       if (
         TODAY_YEAR <= SELECT_DATE.getFullYear() &&
@@ -332,6 +332,17 @@ export default defineComponent({
     //日付選択チェック(１時間以内を選択してたら注文完了できない)
 
     /**
+     * 今日の日付を取得(デフォルトで表示させたいため)
+     * format()を使用するため npm install date-fns --save
+     */
+
+    let getTodayDate = () => {
+      let formatToday = format(today, "yyyy/MM/dd");
+      selectedDate.value = formatToday;
+    };
+    getTodayDate();
+
+    /**
      * 注文する.
      */
 
@@ -339,15 +350,16 @@ export default defineComponent({
     orderItemList = store.getters.getOrderItemCountInCart;
     // APIに送るための日付フォーマット
     const createOrderDate = new Date(selectedDate.value);
-    // console.dir("createOrderDate" + JSON.stringify(createOrderDate));
     const formatOrderDate = ref(
       format(createOrderDate, `yyyy/MM/dd ${selectedTime.value}:00:00`)
     );
     let order = async () => {
+      console.log("合計金額" + getcalcTotalPricePlusTax.value);
+
       if (errorCheck() === true) {
         return;
       }
-      console.log(SELECT_DATE);
+
       console.log("選択された日付" + formatOrderDate.value);
 
       const response = await axios.post(
@@ -365,7 +377,7 @@ export default defineComponent({
           orderItemFormList: orderItemList,
         }
       );
-      router.push("/OrderFinished");
+      // router.push("/OrderFinished");
       console.dir("response" + JSON.stringify(response));
     };
 
@@ -384,6 +396,7 @@ export default defineComponent({
       errorMsgAddress,
       errorMsgTel,
       errorMsgDate,
+      getTodayDate,
       selectedTime,
       getcalcTotalPricePlusTax,
       today,

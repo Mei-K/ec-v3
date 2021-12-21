@@ -332,6 +332,17 @@ export default defineComponent({
     //日付選択チェック(１時間以内を選択してたら注文完了できない)
 
     /**
+     * 今日の日付を取得(デフォルトで表示させたいため)
+     * format()を使用するため npm install date-fns --save
+     */
+
+    // let getTodayDate = () => {
+    //   let formatToday = format(today, "yyyy/MM/dd");
+    //   selectedDate.value = formatToday;
+    // };
+    // getTodayDate();
+
+    /**
      * 注文する.
      */
 
@@ -339,7 +350,6 @@ export default defineComponent({
     orderItemList = store.getters.getOrderItemCountInCart;
     // APIに送るための日付フォーマット
     const createOrderDate = new Date(selectedDate.value);
-    // console.dir("createOrderDate" + JSON.stringify(createOrderDate));
     const formatOrderDate = ref(
       format(createOrderDate, `yyyy/MM/dd ${selectedTime.value}:00:00`)
     );
