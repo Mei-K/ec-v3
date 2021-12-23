@@ -1,0 +1,23 @@
+//カラー変数
+$navy: #192f60;
+$navy-hover: #192f60;
+$backGroundcolor: rgba(156, 174, 183, 0.2);
+$header-font-color: #9caeb7;
+
+
+html {
+  font-size: 62.5%;
+}
+
+a {
+  color: $navy: #192f60;
+  ;
+}
+
+.input-container {
+  width: 70%;
+  margin: 0 auto;
+  background-color: $backGroundcolor;
+  padding: 4rem 2rem;
+  box-sizing: border-box;
+}

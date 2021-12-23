@@ -1,0 +1,44 @@
+//カラー変数
+$navy: #192f60;
+$navy-hover: #192f60;
+$backGroundcolor: rgba(156, 174, 183, 0.2);
+$header-font-color: #9caeb7;
+
+//画面サイズ
+
+//タブレット
+$tablet: 1024px;
+// スマホ
+$sp: 599px;
+
+@mixin pc {
+  @media (min-width: ($pc)) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media (max-width: ($tablet)) {
+    @content;
+  }
+}
+
+@mixin sp {
+  @media (max-width: ($sp)) {
+    @content;
+  }
+}
+
+html {
+  font-size: 62.5%;
+}
+a {
+  color: $navy;
+}
+
+.input-container {
+  width: 70%;
+  margin: 0 auto;
+  background-color: $backGroundcolor;
+  padding: 4rem 2rem;
+  box-sizing: border-box;
+}
