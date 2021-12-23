@@ -169,7 +169,7 @@ export default defineComponent({
     let getItemDetail = async () => {
       const itemID = route.params.id;
       const response = await axios.get(
-        "https://153.127.48.168:8080/ecsite-api/item/" + itemID
+        "http://153.127.48.168:8080/ecsite-api/item/" + itemID
       );
       //商品詳細を表示
       currentOrderItem.value = new orderItem(
@@ -230,7 +230,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 @import "./public/style.scss";
 /* ========================================
     商品詳細ページのスタイル

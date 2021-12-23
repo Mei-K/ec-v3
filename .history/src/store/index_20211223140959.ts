@@ -3,7 +3,7 @@ import { Item } from "../types/item";
 import axios from "axios";
 import { orderItem } from "../types/orderItem";
 import createPersistedState from "vuex-persistedstate";
-import { loginUser } from "../types/loginUser";
+import { loginUser } from "@/types/loginUser";
 
 export default createStore({
   strict: true,
@@ -116,7 +116,7 @@ export default createStore({
      */
     async getItemList(context) {
       const response = await axios.get(
-        "https://153.127.48.168:8080/ecsite-api/item/items/aloha"
+        "http://153.127.48.168:8080/ecsite-api/item/items/aloha"
       );
 
       const payload = response.data;
@@ -131,7 +131,7 @@ export default createStore({
      */
     async getLoginUserInfo(context) {
       const response = await axios.get(
-        "https://153.127.48.168:8080/ecsite-api/user/login"
+        "http://153.127.48.168:8080/ecsite-api/user/login"
       );
       const payload = response.data;
       context.commit("getLoginUserInfo", payload);
