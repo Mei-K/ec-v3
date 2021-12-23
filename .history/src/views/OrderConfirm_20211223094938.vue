@@ -300,15 +300,9 @@ export default defineComponent({
     //日付選択チェック(１時間以内を選択してたら注文完了できない)
 
     /**
-     * カートリストの中身
-     * @remarks 注文情報をAPIに送るために現在のカートの中身の商品情報
-     * を取得する
-     */
-
-    /**
      * 注文する.
      */
-    let order = async () => {
+    let order = () => {
       //APIに送る用日付加工
       const NewDate_SEELECT_DATE = new Date(selectedDate.value);
       const Format_SELECT_DATE = format(
@@ -316,24 +310,26 @@ export default defineComponent({
         `yyyy/MM/dd ${selectedTime.value}:00:00`
       );
       console.log("APIに送る用日時" + Format_SELECT_DATE);
-      const response = await axios.post(
-        "http://153.127.48.168:8080/ecsite-api/order",
-        {
-          userId: 0,
-          status: 1,
-          totalPrice: getcalcTotalPricePlusTax.value,
-          destinationName: name.value,
-          destinationEmail: email.value,
-          destinationZipcode: zipcode.value,
-          destinationtel: tel.value,
-          deliveryTime: Format_SELECT_DATE,
-          paymentMethod: paymentMethod.value,
-          orderItemFormList: orderItemList,
-        }
-      );
-      router.push("/OrderFinished");
-      console.dir("response" + JSON.stringify(response));
     };
+
+    //   const response = await axios.post(
+    //     "http://153.127.48.168:8080/ecsite-api/order",
+    //     {
+    //       userId: 0,
+    //       status: 1,
+    //       totalPrice: getcalcTotalPricePlusTax.value,
+    //       destinationName: name.value,
+    //       destinationEmail: email.value,
+    //       destinationZipcode: zipcode.value,
+    //       destinationtel: tel.value,
+    //       deliveryTime: formatOrderDate.value,
+    //       paymentMethod: 1,
+    //       orderItemFormList: orderItemList,
+    //     }
+    //   );
+    //   router.push("/OrderFinished");
+    //   console.dir("response" + JSON.stringify(response));
+    // };
 
     return {
       name,

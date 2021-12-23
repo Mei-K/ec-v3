@@ -168,18 +168,12 @@
             name="paymentMethod"
             type="radio"
             value="1"
-            v-model="paymentMethod"
             checked="checked"
           />
           <span>代金引換</span>
         </label>
         <label class="order-confirm-payment-method-radio">
-          <input
-            name="paymentMethod"
-            type="radio"
-            value="2"
-            v-model="paymentMethod"
-          />
+          <input name="paymentMethod" type="radio" value="2" />
           <span>クレジットカード</span>
         </label>
       </span>
@@ -219,8 +213,10 @@ export default defineComponent({
     let selectedTime = ref("11");
     //今日の日付
     let today = new Date();
-    //支払いステータス
-    let paymentMethod = ref("1");
+    //選択されている日時をDateオブジェクト化
+    const SELECT_DATE = new Date(selectedDate.value);
+
+    const FOMRMAT_DATE = ref("");
 
     //エラーメッセージ
     let errorMsgName = ref("");
@@ -295,27 +291,65 @@ export default defineComponent({
         errorMsgTel.value = "";
       }
 
+      //現在の日時の年月日をそれぞれ取得
+      const TODAY_YEAR = today.getFullYear();
+      const TODAY_MONTH = today.getMonth();
+      const TODAY_DATE = today.getDate();
+
+      //現在の日時から１時間以降でなかったらエラーにする
+      if (
+        TODAY_YEAR >= SELECT_DATE.getFullYear() ||
+        TODAY_MONTH >= SELECT_DATE.getMonth() ||
+        TODAY_DATE >= SELECT_DATE.getDate()
+      ) {
+        errorMsgDate.value = "今日以降に日付を選択してください";
+        errorFlag.value = true;
+      } else {
+        errorMsgDate.value = "";
+      }
+
+      const TODAY_HOUR = today.getHours();
+
+      if (
+        TODAY_YEAR <= SELECT_DATE.getFullYear() &&
+        TODAY_MONTH <= SELECT_DATE.getMonth() &&
+        TODAY_DATE <= SELECT_DATE.getDate() &&
+        TODAY_HOUR <= Number(selectedTime.value) + 1
+      ) {
+        errorMsgDate.value = "";
+        errorFlag.value = false;
+      }
+      if (
+        TODAY_HOUR >= Number(selectedTime.value) ||
+        TODAY_HOUR === Number(selectedTime.value)
+      ) {
+        errorMsgDate.value = "今から1時間後を選択してください";
+        errorFlag.value = true;
+      }
+
       return errorFlag.value;
     };
     //日付選択チェック(１時間以内を選択してたら注文完了できない)
 
     /**
-     * カートリストの中身
-     * @remarks 注文情報をAPIに送るために現在のカートの中身の商品情報
-     * を取得する
-     */
-
-    /**
      * 注文する.
      */
+
+    let orderItemList = Array<orderItem>();
+    orderItemList = store.getters.getOrderItemCountInCart;
+    // APIに送るための日付フォーマット
+    const createOrderDate = new Date(selectedDate.value);
+    // console.dir("createOrderDate" + JSON.stringify(createOrderDate));
+    const formatOrderDate = ref(
+      format(createOrderDate, `yyyy/MM/dd ${selectedTime.value}:00:00`)
+    );
     let order = async () => {
-      //APIに送る用日付加工
-      const NewDate_SEELECT_DATE = new Date(selectedDate.value);
-      const Format_SELECT_DATE = format(
-        NewDate_SEELECT_DATE,
-        `yyyy/MM/dd ${selectedTime.value}:00:00`
-      );
-      console.log("APIに送る用日時" + Format_SELECT_DATE);
+      if (errorCheck() === true) {
+        return;
+      }
+      console.log(SELECT_DATE);
+      console.log("選択された日付" + formatOrderDate.value);
+
       const response = await axios.post(
         "http://153.127.48.168:8080/ecsite-api/order",
         {
@@ -326,8 +360,8 @@ export default defineComponent({
           destinationEmail: email.value,
           destinationZipcode: zipcode.value,
           destinationtel: tel.value,
-          deliveryTime: Format_SELECT_DATE,
-          paymentMethod: paymentMethod.value,
+          deliveryTime: formatOrderDate.value,
+          paymentMethod: 1,
           orderItemFormList: orderItemList,
         }
       );
@@ -353,8 +387,8 @@ export default defineComponent({
       selectedTime,
       getcalcTotalPricePlusTax,
       today,
-      paymentMethod,
       order,
+      FOMRMAT_DATE,
     };
   },
 });
