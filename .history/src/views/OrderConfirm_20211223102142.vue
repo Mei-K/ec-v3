@@ -44,8 +44,8 @@
         </div>
       </div>
       <div class="row order-confirm-delivery-datetime">
-        <div class="error-msg">{{ errorMsgTime }}</div>
         <div class="input-field">
+          <div class="error-msg">{{ errorMsgDate }}</div>
           <input id="deliveryDate" type="date" v-model="selectedDate" />
           <label for="address">配達日時</label>
         </div>
@@ -229,7 +229,7 @@ export default defineComponent({
     let errorMsgAddress = ref("");
     let errorMsgTel = ref("");
     let errorMsgDate = ref("");
-    let errorMsgTime = ref("");
+    // let errorMsgTime = ref("");
     //cartListComp(子コンポーネント)から税込合計金額を受けと得る
     let getcalcTotalPricePlusTax = ref(0);
     //現在のカートリスト情報を格納する配列
@@ -296,29 +296,6 @@ export default defineComponent({
         errorMsgTel.value = "";
       }
 
-      //配達日時のエラーチェック
-      if (selectedTime.value === "" || selectedDate.value === "") {
-        errorMsgTime.value = "配達日時を選択してください";
-        errorFlag.value = true;
-      }
-      //現在から3時間後ではない配達時間が指定された場合はエラーメッセージを返す。
-      //選択された配達日から年月日をそれぞれ取得する。
-      const year = new Date(selectedDate.value).getFullYear();
-      const month = new Date(selectedDate.value).getMonth();
-      const date = new Date(selectedDate.value).getDate();
-      const time = new Date(selectedTime.value).getHours();
-      //選択された配達日時と現在のDateオブジェクトを作成する。
-      const SEELECT_DATE = new Date(year, month, date, time);
-      //現在から3時間後の日時が選択されているか、時間差をミリ秒で計算する。
-      //getTime()で1時間後など調べると数式の意味が分かる
-      const enoughTimeToDeliver =
-        (SEELECT_DATE.getTime() - today.getTime()) / (60 * 60 * 1000);
-      // //時間差が1時間以下の場合はエラーメッセージを表示する。
-      if (enoughTimeToDeliver <= 1) {
-        errorMsgTime.value = "今から1時間後の日時を入力してください";
-        errorFlag.value = true;
-      }
-
       return errorFlag.value;
     };
     //日付選択チェック(１時間以内を選択してたら注文完了できない)
@@ -378,11 +355,8 @@ export default defineComponent({
           orderItemFormList: orderItemList,
         }
       );
-      if (response.data.status === "success") {
-        router.push("/OrderFinished");
-      } else if (response.data.status === "error") {
-        return;
-      }
+      router.push("/OrderFinished");
+      console.dir("response" + JSON.stringify(response));
     };
 
     return {
@@ -400,7 +374,6 @@ export default defineComponent({
       errorMsgAddress,
       errorMsgTel,
       errorMsgDate,
-      errorMsgTime,
       selectedTime,
       getcalcTotalPricePlusTax,
       today,

@@ -307,13 +307,13 @@ export default defineComponent({
       const month = new Date(selectedDate.value).getMonth();
       const date = new Date(selectedDate.value).getDate();
       const time = new Date(selectedTime.value).getHours();
-      //選択された配達日時と現在のDateオブジェクトを作成する。
+      // //選択された配達日時と現在のDateオブジェクトを作成する。
       const SEELECT_DATE = new Date(year, month, date, time);
-      //現在から3時間後の日時が選択されているか、時間差をミリ秒で計算する。
+      // //現在から3時間後の日時が選択されているか、時間差をミリ秒で計算する。
       //getTime()で1時間後など調べると数式の意味が分かる
       const enoughTimeToDeliver =
         (SEELECT_DATE.getTime() - today.getTime()) / (60 * 60 * 1000);
-      // //時間差が1時間以下の場合はエラーメッセージを表示する。
+      // //時間差が3時間以下の場合はエラーメッセージを表示する。
       if (enoughTimeToDeliver <= 1) {
         errorMsgTime.value = "今から1時間後の日時を入力してください";
         errorFlag.value = true;
