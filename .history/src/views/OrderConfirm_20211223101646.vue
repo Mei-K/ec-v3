@@ -304,20 +304,7 @@ export default defineComponent({
      * カートリストの中身
      * @remarks 注文情報をAPIに送るために現在のカートの中身の商品情報を取得する
      */
-
-    /**
-     * 注文する.
-     */
-    let order = async () => {
-      //APIに送る用日付加工
-      const NewDate_SEELECT_DATE = new Date(selectedDate.value);
-      const Format_SELECT_DATE = format(
-        NewDate_SEELECT_DATE,
-        `yyyy/MM/dd ${selectedTime.value}:00:00`
-      );
-      console.log("APIに送る用日時" + Format_SELECT_DATE);
-
-      //注文情報をAPIに送るために現在のカートの中身の商品情報を取得する
+    let getCartItemInfo = () => {
       currentOrderCartList.value = store.getters.getCartItemList;
       let orderToppingList = [];
       let orderItemList = [];
@@ -334,6 +321,20 @@ export default defineComponent({
           orderToppingFormList: orderToppingList,
         });
       }
+    };
+    getCartItemInfo();
+
+    /**
+     * 注文する.
+     */
+    let order = async () => {
+      //APIに送る用日付加工
+      const NewDate_SEELECT_DATE = new Date(selectedDate.value);
+      const Format_SELECT_DATE = format(
+        NewDate_SEELECT_DATE,
+        `yyyy/MM/dd ${selectedTime.value}:00:00`
+      );
+      console.log("APIに送る用日時" + Format_SELECT_DATE);
       const response = await axios.post(
         "http://153.127.48.168:8080/ecsite-api/order",
         {
@@ -346,7 +347,7 @@ export default defineComponent({
           destinationtel: tel.value,
           deliveryTime: Format_SELECT_DATE,
           paymentMethod: paymentMethod.value,
-          orderItemFormList: orderItemList,
+          orderItemFormList: "orderItemList",
         }
       );
       router.push("/OrderFinished");
@@ -373,7 +374,7 @@ export default defineComponent({
       today,
       paymentMethod,
       order,
-
+      getCartItemInfo,
       currentOrderCartList,
     };
   },

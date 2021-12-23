@@ -305,6 +305,7 @@ export default defineComponent({
      * @remarks 注文情報をAPIに送るために現在のカートの中身の商品情報を取得する
      */
 
+
     /**
      * 注文する.
      */
@@ -317,7 +318,8 @@ export default defineComponent({
       );
       console.log("APIに送る用日時" + Format_SELECT_DATE);
 
-      //注文情報をAPIに送るために現在のカートの中身の商品情報を取得する
+//注文情報をAPIに送るために現在のカートの中身の商品情報を取得する
+     */
       currentOrderCartList.value = store.getters.getCartItemList;
       let orderToppingList = [];
       let orderItemList = [];
@@ -373,7 +375,7 @@ export default defineComponent({
       today,
       paymentMethod,
       order,
-
+      getCartItemInfo,
       currentOrderCartList,
     };
   },

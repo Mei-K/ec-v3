@@ -373,7 +373,7 @@ export default defineComponent({
       today,
       paymentMethod,
       order,
-
+      getCartItemInfo,
       currentOrderCartList,
     };
   },

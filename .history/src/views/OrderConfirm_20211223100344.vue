@@ -230,9 +230,12 @@ export default defineComponent({
     let errorMsgTel = ref("");
     let errorMsgDate = ref("");
     // let errorMsgTime = ref("");
+
     //cartListComp(子コンポーネント)から税込合計金額を受けと得る
     let getcalcTotalPricePlusTax = ref(0);
+
     //現在のカートリスト情報を格納する配列
+
     let currentOrderCartList = ref(new Array<orderItem>());
 
     /**
@@ -304,6 +307,7 @@ export default defineComponent({
      * カートリストの中身
      * @remarks 注文情報をAPIに送るために現在のカートの中身の商品情報を取得する
      */
+    let getCartItemInfo = () => {};
 
     /**
      * 注文する.
@@ -316,24 +320,6 @@ export default defineComponent({
         `yyyy/MM/dd ${selectedTime.value}:00:00`
       );
       console.log("APIに送る用日時" + Format_SELECT_DATE);
-
-      //注文情報をAPIに送るために現在のカートの中身の商品情報を取得する
-      currentOrderCartList.value = store.getters.getCartItemList;
-      let orderToppingList = [];
-      let orderItemList = [];
-      //カートリストの商品のトッピング情報(トッピングID)をorderToppingListに格納
-      for (let item of currentOrderCartList.value) {
-        for (let topping of item.orderToppingList) {
-          orderToppingList.push({ toppingId: topping.id });
-        }
-        orderItemList.push({
-          itemId: item.id,
-          orderId: item.orderId,
-          quantity: item.quantity,
-          size: item.size,
-          orderToppingFormList: orderToppingList,
-        });
-      }
       const response = await axios.post(
         "http://153.127.48.168:8080/ecsite-api/order",
         {
@@ -373,8 +359,7 @@ export default defineComponent({
       today,
       paymentMethod,
       order,
-
-      currentOrderCartList,
+      getCartItemInfo,
     };
   },
 });
