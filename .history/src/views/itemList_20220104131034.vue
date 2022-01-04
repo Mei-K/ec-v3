@@ -28,7 +28,7 @@
           </div>
         </div>
       </div>
-      <!-- ページングボタン-->
+      <!-- ページングボタン (機能していない)-->
       <div class="page-btn-container">
         <div
           v-for="pageNum of pageNumCount"
