@@ -30,16 +30,8 @@
       </div>
       <!-- ページングボタン (機能していない)-->
       <div class="page-btn-container">
-        <div
-          v-for="pageNum of pageNumCount"
-          v-bind:key="pageNum"
-          class="page-btn"
-        >
-          <button
-            type="button"
-            v-on:click="showItemListforOnePage(pageNum)"
-            class="btn"
-          >
+        <div v-for="pageNum of pageNumCount" v-bind:key="pageNum">
+          <button type="button" v-on:click="showItemListforOnePage(pageNum)">
             {{ pageNum }}
           </button>
         </div>
@@ -306,11 +298,8 @@ $blue: #192f60;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  .page-btn {
-    margin-right: 2rem;
-    &:last-child {
-      margin: 0;
-    }
+  &button {
+    display: block;
   }
 }
 </style>

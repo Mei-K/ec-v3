@@ -308,9 +308,6 @@ $blue: #192f60;
   justify-content: center;
   .page-btn {
     margin-right: 2rem;
-    &:last-child {
-      margin: 0;
-    }
   }
 }
 </style>
