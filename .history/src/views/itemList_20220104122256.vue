@@ -64,7 +64,7 @@ export default defineComponent({
     };
 
     /**
-     * 最初の6件をデフォルトで表示する
+     * 最初の6件をデフォルトで表示
      */
     let defaultDisplay = async () => {
       await getAllItem();

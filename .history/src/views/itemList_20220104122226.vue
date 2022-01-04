@@ -62,10 +62,6 @@ export default defineComponent({
       await store.dispatch("getItemList");
       itemList.value = store.getters.getAllItemList;
     };
-
-    /**
-     * 最初の6件をデフォルトで表示する
-     */
     let defaultDisplay = async () => {
       await getAllItem();
       currentItemList.value = itemList.value.slice(0, 6);

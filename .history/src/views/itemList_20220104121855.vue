@@ -64,15 +64,6 @@ export default defineComponent({
     };
 
     /**
-     * 最初の6件をデフォルトで表示する
-     */
-    let defaultDisplay = async () => {
-      await getAllItem();
-      currentItemList.value = itemList.value.slice(0, 6);
-    };
-    defaultDisplay();
-
-    /**
      * ページングボタンの表示の数字を取得
      * @remarks 表示するページボタンの数字を商品数に応じて取得する
      */
@@ -81,9 +72,8 @@ export default defineComponent({
       pageNumCount.value = Math.ceil(itemList.value.length / 6);
     };
     getShowPage();
-
     /**
-     * 対象のページボタンに応じて商品一覧を6件表示する
+     * 対象のページ数に応じて商品一覧を6件表示する
      */
     let showItemListforOnePage = (turgetPageNum: number) => {
       let startNum = (turgetPageNum - 1) * 6;
@@ -98,7 +88,6 @@ export default defineComponent({
       currentItemList,
       getAllItem,
       getShowPage,
-      defaultDisplay,
       showItemListforOnePage,
     };
   },

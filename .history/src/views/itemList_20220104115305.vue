@@ -4,7 +4,7 @@
       <!-- <div class="item-wrapper"> -->
       <h1>商品一覧</h1>
       <div class="items">
-        <div class="item" v-for="item of currentItemList" v-bind:key="item.id">
+        <div class="item" v-for="item of itemList" v-bind:key="item.id">
           <div class="item-icon">
             <router-link :to="'/itemDtail/' + item.id"
               ><img :src="item.imagePath" />
@@ -30,9 +30,7 @@
       </div>
       <!-- ページングボタン (機能していない)-->
       <div v-for="pageNum of pageNumCount" v-bind:key="pageNum">
-        <button type="button" v-on:click="showItemListforOnePage(pageNum)">
-          {{ pageNum }}
-        </button>
+        <button type="button">テスト</button>
       </div>
       <!-- </div> -->
     </div>
@@ -53,24 +51,17 @@ export default defineComponent({
     let itemList = ref(Array<Item>());
     //ページ数
     let pageNumCount = ref(0);
-    let currentItemList = ref(Array<Item>());
 
     /**
      * 全商品一覧を取得
+     *
+     *
      */
     const getAllItem = async () => {
       await store.dispatch("getItemList");
       itemList.value = store.getters.getAllItemList;
     };
-
-    /**
-     * 最初の6件をデフォルトで表示する
-     */
-    let defaultDisplay = async () => {
-      await getAllItem();
-      currentItemList.value = itemList.value.slice(0, 6);
-    };
-    defaultDisplay();
+    getAllItem();
 
     /**
      * ページングボタンの表示の数字を取得
@@ -82,24 +73,12 @@ export default defineComponent({
     };
     getShowPage();
 
-    /**
-     * 対象のページボタンに応じて商品一覧を6件表示する
-     */
-    let showItemListforOnePage = (turgetPageNum: number) => {
-      let startNum = (turgetPageNum - 1) * 6;
-      let endNum = startNum + 6;
-      currentItemList.value = itemList.value.slice(startNum, endNum);
-    };
-
     return {
       store,
       itemList,
       pageNumCount,
-      currentItemList,
       getAllItem,
       getShowPage,
-      defaultDisplay,
-      showItemListforOnePage,
     };
   },
 });

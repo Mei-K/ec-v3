@@ -64,15 +64,6 @@ export default defineComponent({
     };
 
     /**
-     * 最初の6件をデフォルトで表示する
-     */
-    let defaultDisplay = async () => {
-      await getAllItem();
-      currentItemList.value = itemList.value.slice(0, 6);
-    };
-    defaultDisplay();
-
-    /**
      * ページングボタンの表示の数字を取得
      * @remarks 表示するページボタンの数字を商品数に応じて取得する
      */
@@ -91,6 +82,8 @@ export default defineComponent({
       currentItemList.value = itemList.value.slice(startNum, endNum);
     };
 
+    let defaultDisplay = () => {};
+
     return {
       store,
       itemList,
@@ -98,7 +91,6 @@ export default defineComponent({
       currentItemList,
       getAllItem,
       getShowPage,
-      defaultDisplay,
       showItemListforOnePage,
     };
   },
