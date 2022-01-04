@@ -60,16 +60,17 @@ export default defineComponent({
     const getAllItem = async () => {
       await store.dispatch("getItemList");
       itemList.value = store.getters.getAllItemList;
+      console.log("アイテム数length" + itemList.value.length);
     };
     getAllItem();
 
     /**
-     * ページングボタンの表示の数字を取得
-     * @remarks 表示するページボタンの数字を商品数に応じて取得する
+     * ページングボタンを作りたい・・・
      */
-    const getShowPage = async () => {
-      await getAllItem();
+    const getShowPage = () => {
+      console.log("アイテム数length" + itemList.value.length);
       pageNum.value = Math.ceil(itemList.value.length / 6);
+      console.log("getShowPageの" + pageNum.value);
     };
     getShowPage();
 

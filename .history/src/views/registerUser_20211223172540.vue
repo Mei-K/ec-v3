@@ -305,7 +305,7 @@ export default defineComponent({
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const axiosJsonpAdapter = require("axios-jsonp");
       if (zipcode.value.match(/[0-9]{7}/g)) {
-        const response = await axios.get("http://zipcoda.net/api", {
+        const response = await axios.get("https://zipcoda.net/api", {
           adapter: axiosJsonpAdapter,
           params: {
             zipcode: zipcode.value,

@@ -64,8 +64,7 @@ export default defineComponent({
     getAllItem();
 
     /**
-     * ページングボタンの表示の数字を取得
-     * @remarks 表示するページボタンの数字を商品数に応じて取得する
+     * ページングボタンを作りたい・・・
      */
     const getShowPage = async () => {
       await getAllItem();

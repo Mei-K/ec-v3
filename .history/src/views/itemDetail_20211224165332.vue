@@ -25,7 +25,7 @@
                   v-model="selectSize"
                 />
                 <span>
-                  &nbsp;<span class="price"> M </span
+                  &nbsp;<span class="price">M</span
                   >{{ currentOrderItem.item.priceM }}円(税抜)</span
                 >
               </label>
@@ -40,7 +40,7 @@
                   v-model="selectSize"
                 />
                 <span>
-                  &nbsp;<span class="price"> L </span
+                  &nbsp;<span class="price">L</span
                   >{{ currentOrderItem.item.priceL }}円(税抜)</span
                 >
               </label>
@@ -268,7 +268,7 @@ export default defineComponent({
 
 .item-hedding {
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 17px;
   text-align: left;
 }
 .item-size {

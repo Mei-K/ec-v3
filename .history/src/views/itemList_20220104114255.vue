@@ -50,7 +50,7 @@ export default defineComponent({
     //現在の商品一覧を格納する配列
     let itemList = ref(Array<Item>());
     //ページ数
-    let pageNum = ref(0);
+    let pageNum = ref(1);
 
     /**
      * 全商品一覧を取得
@@ -60,16 +60,17 @@ export default defineComponent({
     const getAllItem = async () => {
       await store.dispatch("getItemList");
       itemList.value = store.getters.getAllItemList;
+      console.log("アイテム数length" + itemList.value.length);
     };
     getAllItem();
 
     /**
-     * ページングボタンの表示の数字を取得
-     * @remarks 表示するページボタンの数字を商品数に応じて取得する
+     * ページングボタンを作りたい・・・
      */
-    const getShowPage = async () => {
-      await getAllItem();
+    let getShowPage = () => {
+      getAllItem();
       pageNum.value = Math.ceil(itemList.value.length / 6);
+      console.log("getShowPageの" + pageNum.value);
     };
     getShowPage();
 

@@ -116,7 +116,7 @@ export default createStore({
      */
     async getItemList(context) {
       const response = await axios.get(
-        "http://153.127.48.168:8080/ecsite-api/item/items/aloha"
+        "https://153.127.48.168:8080/ecsite-api/item/items/aloha"
       );
 
       const payload = response.data;
@@ -131,7 +131,7 @@ export default createStore({
      */
     async getLoginUserInfo(context) {
       const response = await axios.get(
-        "http://153.127.48.168:8080/ecsite-api/user/login"
+        "https://153.127.48.168:8080/ecsite-api/user/login"
       );
       const payload = response.data;
       context.commit("getLoginUserInfo", payload);

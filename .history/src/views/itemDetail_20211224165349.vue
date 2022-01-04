@@ -268,7 +268,7 @@ export default defineComponent({
 
 .item-hedding {
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 17px;
   text-align: left;
 }
 .item-size {

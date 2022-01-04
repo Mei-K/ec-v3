@@ -14,46 +14,41 @@
         <div class="row item-size">
           <div class="item-hedding">サイズ</div>
           <div>
-            <div>
-              <label>
-                <input
-                  id="size-m"
-                  name="selectSize"
-                  type="radio"
-                  checked="checked"
-                  value="M"
-                  v-model="selectSize"
-                />
-                <span>
-                  &nbsp;<span class="price"> M </span
-                  >{{ currentOrderItem.item.priceM }}円(税抜)</span
-                >
-              </label>
-            </div>
-            <div>
-              <label>
-                <input
-                  id="size-l"
-                  name="selectSize"
-                  type="radio"
-                  value="L"
-                  v-model="selectSize"
-                />
-                <span>
-                  &nbsp;<span class="price"> L </span
-                  >{{ currentOrderItem.item.priceL }}円(税抜)</span
-                >
-              </label>
-            </div>
+            <label>
+              <input
+                id="size-m"
+                name="selectSize"
+                type="radio"
+                checked="checked"
+                value="M"
+                v-model="selectSize"
+              />
+              <span>
+                &nbsp;<span class="price">M</span
+                >{{ currentOrderItem.item.priceM }}円(税抜)</span
+              >
+            </label>
+            <label>
+              <input
+                id="size-l"
+                name="selectSize"
+                type="radio"
+                value="L"
+                v-model="selectSize"
+              />
+              <span>
+                &nbsp;<span class="price">L</span
+                >{{ currentOrderItem.item.priceL }}円(税抜)</span
+              >
+            </label>
           </div>
         </div>
 
         <div class="row item-toppings">
           <div class="item-hedding">
             トッピング&nbsp;1つにつき
-            <div><span> M </span>&nbsp;&nbsp;200円(税抜)</div>
-
-            <div><span> L </span>&nbsp;&nbsp;300円(税抜)</div>
+            <span>&nbsp;M&nbsp;</span>&nbsp;&nbsp;200円(税抜)
+            <span>&nbsp;L</span>&nbsp;&nbsp;300円(税抜)
           </div>
           <div class="topping-container">
             <div
@@ -268,7 +263,7 @@ export default defineComponent({
 
 .item-hedding {
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 17px;
   text-align: left;
 }
 .item-size {
@@ -287,7 +282,7 @@ export default defineComponent({
 
 .item-toppings {
   font-size: 15px;
-  padding: 0 2rem 0 2rem;
+  padding: 0 10rem 0 10rem;
 }
 
 .item-topping {
@@ -331,21 +326,5 @@ export default defineComponent({
 
 .topping-item-container {
   width: 30%;
-}
-
-@include sp {
-  .row {
-    display: flex;
-    flex-direction: column;
-
-    .item-intro {
-      font-size: 1.2rem;
-      padding: 0 4%;
-      box-sizing: border-box;
-    }
-    .item-size {
-      padding: 0 4%;
-    }
-  }
 }
 </style>
